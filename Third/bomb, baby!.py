@@ -1,31 +1,12 @@
-def helper(x, y, m, f, steps):
-    print("-----------")
-    print(x,y,m,f,steps)
-    if x == 1 and y == 1:
-        return [0, True]
-    if x == m+f and y == f:
-        return [steps, True]
-    if y == m+f and x == m:
-        return [steps, True]
-    if x < m or y < f:
-        return ["Impossible", False]
-
-    choice1 = helper(x, y, m+f, f, steps+1)
-    choice2 = helper(x, y, m, m+f, steps+1)
-
-    if choice1[1] == False and choice2[1] == False:
-        return ["Impossible", False]
-    elif choice1[1] == True:
-        return [choice1[0], True]
-    else:
-        return [choice2[0], True]
-
-def solution(x, y):
-    # Your code here
-    ans = helper(x, y, 1, 1, 1)
-    return str(ans[0])
-
-print(solution(1,2))
-print(solution(2,4))
-print(solution(3,1))
-print(solution(4,7))
+def answer(M, F):
+    m, f = long(M), long(F)
+    total = 0
+    while not (m == 1 and f == 1):
+        if f <= 0 or m <= 0:
+            return "impossible"
+        if f == 1:
+            return str(total + m - 1)
+        else:
+            total += long(m/f)
+            m, f = f, m % f
+    return str(total)
